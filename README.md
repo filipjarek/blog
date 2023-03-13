@@ -1,4 +1,4 @@
-# new
+# Blog
 
 ## Table of Contents
 * [Technologies Used](#technologies-used)
@@ -7,6 +7,10 @@
 * [Setup](#setup)
 
 ## Technologies Used
+
+    Symfony 6.2.6
+    PHP 8.2.0
+    Bootstrap 5.2.3
     
 ## Features
 
