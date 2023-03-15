@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\PostRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PostRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 class Post
@@ -37,7 +38,8 @@ class Post
     private Collection $comments;
 
     public function __construct()
-    {
+    {   
+        $this->createdAt = new \DateTimeImmutable("now", new \DateTimeZone('Europe/Warsaw'));
         $this->comments = new ArrayCollection();
     }
 
@@ -87,7 +89,7 @@ class Post
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
 

@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\CommentRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CommentRepository;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 class Comment
@@ -20,7 +21,12 @@ class Comment
     private ?Post $post = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    private ?\DateTimeImmutable $createdAt;
+
+    public function __construct()
+    {   
+        $this->createdAt = new DateTimeImmutable("now", new \DateTimeZone('Europe/Warsaw'));
+    }
 
     public function getId(): ?int
     {
@@ -51,7 +57,7 @@ class Comment
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?DateTimeImmutable
     {
         return $this->createdAt;
     }

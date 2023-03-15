@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\CategoryRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CategoryRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
@@ -19,7 +20,7 @@ class Category
     private ?string $name = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    private ?DateTimeImmutable $createdAt;
 
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
@@ -31,7 +32,8 @@ class Category
     private Collection $posts;
 
     public function __construct()
-    {
+    {   
+        $this->createdAt = new \DateTimeImmutable("now", new \DateTimeZone('Europe/Warsaw'));
         $this->posts = new ArrayCollection();
     }
 
@@ -41,7 +43,7 @@ class Category
     }
 
     public function getName(): ?string
-    {
+    {   
         return $this->name;
     }
 
@@ -52,7 +54,7 @@ class Category
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?DateTimeImmutable
     {
         return $this->createdAt;
     }
@@ -117,4 +119,10 @@ class Category
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
+    
 }
