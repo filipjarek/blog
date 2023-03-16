@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'layouts/body.html.twig' %}
 {% block title %}
 	Login
 {% endblock %}
@@ -35,5 +35,7 @@
 			</div>
 		</div>
 	</body>
+	
+	{% include "components/_footer.html.twig" %}
 	
 {% endblock %}
