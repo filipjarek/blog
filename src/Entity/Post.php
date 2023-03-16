@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
+#[UniqueEntity('slug')]
 class Post
 {
     #[ORM\Id]
@@ -19,8 +20,11 @@ class Post
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $slug = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $previewContent = null;
 
     #[ORM\Column(nullable: true)]
     private ?string $content = null;
@@ -68,6 +72,18 @@ class Post
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getPreviewContent(): ?string
+    {
+        return $this->previewContent;
+    }
+
+    public function setPreviewContent(string $previewContent): self
+    {
+        $this->previewContent = $previewContent;
 
         return $this;
     }

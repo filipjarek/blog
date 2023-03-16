@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
+#[UniqueEntity('slug')]
 class Category
 {
     #[ORM\Id]
@@ -22,7 +23,7 @@ class Category
     #[ORM\Column]
     private ?DateTimeImmutable $createdAt;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $slug = null;
 
     #[ORM\Column]
