@@ -4,4 +4,31 @@
 
 {% block content %}
 
+<div class="container mx-auto flex flex-wrap py-6">
+
+        <section class="w-full md:w-2/3 flex flex-col items-center px-3">
+
+            <article class="flex flex-col shadow my-4">
+                <div class="bg-white flex flex-col justify-start p-6">
+                    <a href="{{ path('app_category', {'slug': post.category.slug}) }}" class="text-violet-600 hover:text-gray-900 text-sm font-bold uppercase pb-4 hover:underline">{{ post.category.name }}</a>
+                    <p class="text-3xl font-bold hover:text-gray-700 pb-4">{{ post.title }}</p>
+                    <p href="#" class="text-sm pb-8">
+                         Published on <b>{{ post.createdAt|format_date('medium') }}</b>
+                    </p>
+                    
+                    <p class="pb-3">{{ post.content }}</p>
+                </div>
+            </article>
+
+            <div class="w-full flex pt-6">
+                <a href="{{ path('app_home') }}" class="w-1/2 bg-white shadow hover:shadow-md text-left p-6">
+                    <p class="text-lg text-violet-800 font-bold flex items-center hover:underline">Back</p>
+                    <p class="pt-2">Return to the posts page</p>
+                </a>
+               
+            </div>
+          
+        </section>
+</div>
+
 {% endblock %}
