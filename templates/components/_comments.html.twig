@@ -1,0 +1,12 @@
+{% if comment.isApproved %}
+
+    <div class="w-full flex pt-6">
+        <div class="w-full bg-white text-left p-6 border-y border-dashed border-gray-400">
+            <p class="text-lg text-gray-800 font-bold flex items-center divide-y divide-gray-400">{{ comment.author }}</p> 
+            <p class="text-sm pb-3">{{ comment.createdAt|format_date('medium') }}</p>
+            <p class="pt-2">{{ comment.text }}</p>
+        </div>           
+    </div>
+                         
+{% endif %}
+

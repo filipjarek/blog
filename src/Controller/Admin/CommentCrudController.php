@@ -9,6 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -24,7 +25,8 @@ class CommentCrudController extends AbstractCrudController
     {
         return $crud
             ->setEntityLabelInSingular('Post Comment')
-            ->setEntityLabelInPlural('Post Comments');
+            ->setEntityLabelInPlural('Post Comments')
+            ->setDefaultSort(['createdAt' => 'DESC']);
     }
 
     public function configureFilters(Filters $filters): Filters
@@ -36,9 +38,9 @@ class CommentCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield IdField::new('id')->onlyOnIndex();
-        yield AssociationField::new('post');
+        yield AssociationField::new('post')->onlyOnIndex();
         yield TextField::new('author');
-        yield TextField::new('text');
+        yield TextareaField::new('text');
         $createdAt = DateTimeField::new('createdAt');
                     if (Crud::PAGE_EDIT === $pageName) {
                         yield $createdAt->setFormTypeOption('disabled', true);

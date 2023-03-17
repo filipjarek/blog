@@ -27,7 +27,7 @@ class Comment
     private ?\DateTimeImmutable $createdAt;
 
     #[ORM\Column]
-    private ?bool $isApproved;
+    private ?bool $isApproved = false;
 
     public function __construct()
     {   
