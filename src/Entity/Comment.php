@@ -5,6 +5,7 @@ namespace App\Entity;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CommentRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 class Comment
@@ -15,9 +16,13 @@ class Comment
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2, max: 255)]
     private ?string $author = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(min: 2, max: 255)]
+    #[Assert\NotBlank]
     private ?string $text = null;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]

@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 #[Vich\Uploadable]
@@ -20,15 +21,20 @@ class Post
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank()]
+    #[Assert\Length(min: 2, max: 255)]
     private ?string $title = null;
 
     #[ORM\Column(length: 255, unique: true)]
+    #[Assert\NotBlank()]
     private ?string $slug = null;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\NotBlank()]
     private ?string $previewContent = null;
 
     #[ORM\Column(type: 'text', nullable: true)]
+    #[Assert\NotBlank()]
     private ?string $content = null;
 
     #[Vich\UploadableField(mapping: 'posts', fileNameProperty: 'image')]
