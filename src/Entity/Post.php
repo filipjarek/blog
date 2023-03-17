@@ -26,7 +26,7 @@ class Post
     #[ORM\Column(nullable: true)]
     private ?string $previewContent = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(type: 'text', nullable: true)]
     private ?string $content = null;
 
     #[ORM\Column]

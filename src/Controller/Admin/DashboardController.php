@@ -21,13 +21,14 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('App');
+            ->setTitle('Blog');
     }
 
     public function configureMenuItems(): iterable
     {
+        yield MenuItem::linktoRoute('Back to the website', 'fa-solid fa-arrow-left', 'app_home');
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Posts', 'fa-solid fa-list-check', Post::class);
-        yield MenuItem::linkToCrud('Categories', 'fa-solid fa-list-check', Category::class);
+        yield MenuItem::linkToCrud('Posts', 'fa-regular fa-pen-to-square', Post::class);
+        yield MenuItem::linkToCrud('Categories', 'fa-solid fa-bars', Category::class);
     }
 }
