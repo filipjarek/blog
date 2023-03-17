@@ -60,5 +60,6 @@ class PostCrudController extends AbstractCrudController
                         yield $createdAt;
                     }
         yield BooleanField::new('is_active');
+        yield AssociationField::new('comments')->onlyOnIndex();
     }
 }

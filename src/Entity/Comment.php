@@ -15,6 +15,9 @@ class Comment
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    private ?string $author = null;
+
+    #[ORM\Column(length: 255)]
     private ?string $text = null;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
@@ -22,6 +25,9 @@ class Comment
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt;
+
+    #[ORM\Column]
+    private ?bool $isApproved;
 
     public function __construct()
     {   
@@ -31,6 +37,18 @@ class Comment
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getAuthor(): ?string
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(string $author): self
+    {
+        $this->author = $author;
+
+        return $this;
     }
 
     public function getText(): ?string
@@ -65,6 +83,18 @@ class Comment
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function isIsApproved(): ?bool
+    {
+        return $this->isApproved;
+    }
+
+    public function setIsApproved(bool $isApproved): self
+    {
+        $this->isApproved = $isApproved;
 
         return $this;
     }

@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Post;
+use App\Entity\Comment;
 use App\Entity\Category;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,7 +29,8 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linktoRoute('Back to the website', 'fa-solid fa-arrow-left', 'app_home');
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Posts', 'fa-regular fa-pen-to-square', Post::class);
         yield MenuItem::linkToCrud('Categories', 'fa-solid fa-bars', Category::class);
+        yield MenuItem::linkToCrud('Posts', 'fa-regular fa-pen-to-square', Post::class);
+        yield MenuItem::linkToCrud('Comments', 'fa-solid fa-comment', Comment::class);
     }
 }
