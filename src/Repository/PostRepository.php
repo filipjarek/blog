@@ -40,7 +40,7 @@ class PostRepository extends ServiceEntityRepository
         }
     }
 
-    public function findOneBySlug(string $slug): ?Post
+    public function findOnePostBySlug(string $slug): ?Post
     {
         return $this->createQueryBuilder('p')
             ->where('p.slug = :slug')
@@ -60,6 +60,17 @@ class PostRepository extends ServiceEntityRepository
             ->where('p.category = :category')
             ->setParameter('category', $category)
             ->andWhere('p.isActive = true')
+            ->orderBy('p.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findAllActivePostsOrderedByNewest()
+    {
+        return $this->createQueryBuilder('p')
+            ->leftJoin('p.category', 'c')->addSelect('c')
+            ->andWhere('p.isActive = true')
+            ->andWhere('c.isActive = true')
             ->orderBy('p.createdAt', 'DESC')
             ->getQuery()
             ->getResult();

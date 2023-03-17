@@ -49,4 +49,14 @@ class CategoryRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function findAllActiveCategories()
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c.slug', 'c.name')
+            ->where('c.isActive = true')
+            ->orderBy('c.name', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 }

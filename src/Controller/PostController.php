@@ -13,7 +13,7 @@ class PostController extends AbstractController
     #[Route('/post/{slug}', name: 'app_post')]
     public function index(string $slug, PostRepository $postRepository): Response
     {
-        $post = $postRepository->findOneBySlug($slug);
+        $post = $postRepository->findOnePostBySlug($slug);
         
         return $this->render('post/index.html.twig', [
             'categorySlug' => $post->getCategory()->getSlug(),
