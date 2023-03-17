@@ -4,11 +4,12 @@ namespace App\Controller\Admin;
 
 use App\Entity\Post;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
-use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
@@ -48,6 +49,10 @@ class PostCrudController extends AbstractCrudController
         );
         yield TextareaField::new('previewContent')->onlyOnForms();
         yield TextEditorField::new('content')->onlyOnForms();
+       
+        yield ImageField::new('image')
+        ->setBasePath('uploads/images')
+        ->setUploadDir('public/uploads/images/');
         $createdAt = DateTimeField::new('createdAt');
                     if (Crud::PAGE_EDIT === $pageName) {
                         yield $createdAt->setFormTypeOption('disabled', true);

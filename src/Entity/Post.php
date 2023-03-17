@@ -7,9 +7,11 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PostRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
-#[UniqueEntity('slug')]
+#[Vich\Uploadable]
 class Post
 {
     #[ORM\Id]
@@ -28,6 +30,12 @@ class Post
 
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $content = null;
+
+    #[Vich\UploadableField(mapping: 'posts', fileNameProperty: 'image')]
+    private ?File $imageFile = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $image = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
@@ -98,6 +106,30 @@ class Post
         $this->content = $content;
 
         return $this;
+    }
+
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImage(?string $image): void
+    {
+        $this->image = $image;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable
