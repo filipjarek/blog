@@ -75,4 +75,17 @@ class PostRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findRecentActivePosts(int $num = 5)
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p.slug', 'p.title', 'c.name')
+            ->leftJoin('p.category', 'c')
+            ->where('p.isActive = true')
+            ->andWhere('c.isActive = true')
+            ->orderBy('p.createdAt', 'DESC')
+            ->setMaxResults($num)
+            ->getQuery()
+            ->getResult();
+    }
 }
