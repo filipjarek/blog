@@ -1,10 +1,14 @@
-<nav class="w-full border">
+<nav class="w-full border bg-white">
 	<div class="w-full container mx-auto flex flex-col sm:flex-row items-center justify-center text-sm font-medium uppercase py-1">
+
 		{% for category in categories %}
-			<a href="{{ path('app_category', {'slug': category.slug}) }}" class="hover:text-violet-500 rounded-lg py-1 px-2 mx-2"> 
+
+			<a href="{{ path('app_category', {'slug': category.slug}) }}" class="hover:text-violet-800 text-gray-600 py-1 px-2 mx-2"> 
 				<p class="hover:underline">{{ category.name }}</p>
 			</a>
+
 		{% endfor %}
+		
 	</div>
 </nav>
 

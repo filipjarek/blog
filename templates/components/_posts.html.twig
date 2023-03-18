@@ -1,42 +1,47 @@
 {% for post in posts %}
 
-	    <div class="container mx-auto flex flex-wrap py-6">
-		    <section class="w-full md:w-2/3 flex flex-col items-center px-1">
+	<div class="container mx-auto flex flex-wrap py-6 ">
+		<section class="w-full md:w-2/3 flex flex-col items-center px-1 ">
 
-			    <article class="flex flex-col">
-	
+			<article class="flex flex-col">
+
 				{% if post.image %}
-					<img class="hover:opacity-75" src="{{ vich_uploader_asset(post, 'imageFile') }}" alt="{{ post.image }}">
+
+					<a href="{{ path('app_post', {'slug': post.slug}) }}">
+						<img class="hover:opacity-75 object-cover h-96 w-full" src="{{ vich_uploader_asset(post, 'imageFile') }}" alt="{{ post.image }}">
+					</a>
+
 				{% endif %}
 
-				    <div class="bg-white flex flex-col justify-start p-6 shadow hover:shadow-xl shadow-gray-800/50">
-					    <a href="{{ path('app_category', {'slug': post.category.slug}) }}" class="text-violet-600 hover:text-gray-900 text-sm font-bold uppercase pb-4 hover:underline">{{ post.category.name }}</a>
-					    <a href="{{ path('app_post', {'slug': post.slug}) }}" class="text-3xl font-bold hover:text-gray-700 hover:underline pb-4">{{ post.title }}</a>
-					    <p class="text-sm pb-3">
-						    Published on <b>{{ post.createdAt|format_date('medium') }}</b>
-					    </p>
-					    <p class="pb-6">{{ post.previewContent }}</p>
-					    <a href="{{ path('app_post', {'slug': post.slug}) }}" class="uppercase text-gray-800 hover:text-violet-600 hover:underline">
-							Continue Reading
-						</a>
-				    </div>
-			    </article>
-				
-		 	</section>
+				<div class="bg-white flex flex-col justify-start p-6 shadow hover:shadow-xl shadow-gray-800/50">
+					<a href="{{ path('app_category', {'slug': post.category.slug}) }}" class="text-violet-600 hover:text-gray-900 text-sm font-bold uppercase pb-4 hover:underline">{{ post.category.name }}</a>
+					<a href="{{ path('app_post', {'slug': post.slug}) }}" class="text-3xl font-bold hover:text-gray-700 hover:underline pb-4">{{ post.title }}</a>
+					<p class="text-sm pb-3">
+						Published on
+						<b>{{ post.createdAt|format_date('medium') }}</b>
+					</p>
+					<p class="pb-6 text-justify">{{ post.previewContent }}</p>
+					<a href="{{ path('app_post', {'slug': post.slug}) }}" class="form-group group relative flex justify-center border-2 border-gray-400 hover:border-violet-800 text-gray-400 hover:text-violet-800 pt-1 pb-1 pl-6 pr-6 uppercase w-1/4 font-medium text-sm">
+						Continue Reading
+					</a>
+				</div>
+
+			</article>
+
+		</section>
 
 {% else %}
+
 	<div class="flex flex-col items-center py-8">
-		<p class="font-bold text-gray-800 uppercase">
+		<h2 class="text-sm mb-8 font-semibold uppercase">
 			No posts
-		</p>
+		</h2>
 	</div>
+
 {% endfor %}
 
-   	</div>
-				<div class="w-full md:w-2/3 flex flex-col items-center px-1">
-				{{ knp_pagination_render(posts) }}
-				</div>
-			</div>
-		</div>
 	</div>
-</div>
+
+<div class="w-full md:w-2/3 flex flex-col items-center px-1">
+	{{ knp_pagination_render(posts) }}
+</div></div></div></div></div>

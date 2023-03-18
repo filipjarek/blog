@@ -20,16 +20,16 @@ class CommentType extends AbstractType
                 'placeholder' => 'Your Name',
             ],
             'label_attr' => [
-                'class' => 'form-label block text-sm font-medium text-gray-900 dark:text-white'
+                'class' => 'form-label block text-sm font-medium text-gray-900'
             ],
 
         ])
         ->add('text', TextareaType::class, [
             'attr' => [
-                'placeholder' => 'Comment...',
+                'placeholder' => 'Leave a comment...',
             ],
             'label_attr' => [
-                'class' => 'form-label block text-sm font-medium text-gray-900 dark:text-white'
+                'class' => 'form-label block text-sm font-medium text-gray-900'
                 
             ],
           

@@ -1,17 +1,23 @@
 {% if pageCount > 1 %}
+
     <div class="inline-block justify-center">
        
         {% if previous is defined %}
-            <span class="text-gray-800 hover:text-violet-600 font-bold px-20 text-lg uppercase hover:underline">
-                <a rel="prev" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">Previous Page</a>
+        
+            <span class="form-group group relative flex justify-center border-2 border-gray-400 hover:border-violet-800 text-gray-400 hover:text-violet-800 pt-1 pb-1 pl-6 pr-6 uppercase font-medium text-sm">
+                <a rel="prev" href="{{ path(route, query|merge({(pageParameterName): previous})) }}"><i class="fa-solid fa-arrow-left"></i> Previous Page</a>
             </span>
+
         {% endif %}
 
         {% if next is defined %}
-            <span class="text-gray-800 hover:text-violet-600 font-bold px-20 text-lg uppercase hover:underline">
-                <a rel="next" href="{{ path(route, query|merge({(pageParameterName): next})) }}">Next Page</a>
+
+            <span class="form-group group relative flex justify-center border-2 border-gray-400 hover:border-violet-800 text-gray-400 hover:text-violet-800 pt-1 pb-1 pl-6 pr-6 uppercase font-medium text-sm">
+                <a rel="next" href="{{ path(route, query|merge({(pageParameterName): next})) }}">Next Page <i class="fa-solid fa-arrow-right"></i></a>
             </span>
+
         {% endif %}
 
     </div>    
+
 {% endif %}

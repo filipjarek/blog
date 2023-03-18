@@ -1,9 +1,11 @@
 {% extends 'layouts/body.html.twig' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}
+    Home
+{% endblock %}
 
 {% block content %}
-   
-    {% include 'components/_posts.html.twig' with {'posts': posts} %}
-	
+
+	{% include 'components/_posts.html.twig' with {'posts': posts} %}
+
 {% endblock %}
