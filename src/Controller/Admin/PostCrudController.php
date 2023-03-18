@@ -43,6 +43,7 @@ class PostCrudController extends AbstractCrudController
     {
         yield IdField::new('id')->onlyOnIndex();
         yield AssociationField::new('category');
+        yield AssociationField::new('tags')->setFormTypeOption('choice_label', 'name');
         yield TextField::new('title');
         yield SlugField::new('slug')->setTargetFieldName('title')->setUnlockConfirmationMessage(
             'It is highly recommended to use the automatic slugs, but you can customize them'

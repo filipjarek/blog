@@ -22,16 +22,18 @@ class Tag
     private ?string $name = null;
 
     #[ORM\Column(length: 255, unique: true)]
+    #[Assert\NotBlank()]
     private ?string $slug = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\ManyToMany(targetEntity: Post::class, inversedBy: 'tags')]
+    #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: 'tags')]
     private Collection $posts;
 
     public function __construct()
     {
+        $this->createdAt = new \DateTimeImmutable("now", new \DateTimeZone('Europe/Warsaw'));
         $this->posts = new ArrayCollection();
     }
 
@@ -98,5 +100,10 @@ class Tag
         $this->posts->removeElement($post);
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 }

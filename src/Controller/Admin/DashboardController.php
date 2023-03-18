@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Tag;
 use App\Entity\Post;
 use App\Entity\Comment;
 use App\Entity\Category;
@@ -30,6 +31,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linktoRoute('Back to the website', 'fa-solid fa-arrow-left', 'app_home');
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Categories', 'fa-solid fa-bars', Category::class);
+        yield MenuItem::linkToCrud('Tags', 'fa-solid fa-tag', Tag::class);
         yield MenuItem::linkToCrud('Posts', 'fa-regular fa-pen-to-square', Post::class);
         yield MenuItem::linkToCrud('Comments', 'fa-solid fa-comment', Comment::class);
     }

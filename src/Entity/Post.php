@@ -55,7 +55,7 @@ class Post
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class)]
     private Collection $comments;
 
-    #[ORM\ManyToMany(targetEntity: Tag::class, mappedBy: 'posts')]
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'posts')]
     private Collection $tags;
 
     public function __construct()
