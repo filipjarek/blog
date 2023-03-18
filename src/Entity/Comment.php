@@ -29,7 +29,7 @@ class Comment
     private ?Post $post = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt;
+    private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column]
     private ?bool $isApproved = false;

@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
+use App\Repository\TagRepository;
 use DateTimeImmutable;
-use Doctrine\ORM\Mapping as ORM;
-use App\Repository\CategoryRepository;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: CategoryRepository::class)]
-class Category
+#[ORM\Entity(repositoryClass: TagRepository::class)]
+class Tag
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -19,25 +19,19 @@ class Category
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank()]
-    #[Assert\Length(min: 2, max: 255)]
     private ?string $name = null;
 
-    #[ORM\Column]
-    private ?DateTimeImmutable $createdAt = null;
-
     #[ORM\Column(length: 255, unique: true)]
-    #[Assert\NotBlank()]
     private ?string $slug = null;
 
     #[ORM\Column]
-    private ?bool $isActive;
+    private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Post::class)]
+    #[ORM\ManyToMany(targetEntity: Post::class, inversedBy: 'tags')]
     private Collection $posts;
 
     public function __construct()
-    {   
-        $this->createdAt = new \DateTimeImmutable("now", new \DateTimeZone('Europe/Warsaw'));
+    {
         $this->posts = new ArrayCollection();
     }
 
@@ -47,25 +41,13 @@ class Category
     }
 
     public function getName(): ?string
-    {   
+    {
         return $this->name;
     }
 
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
-    {
-        $this->createdAt = $createdAt;
 
         return $this;
     }
@@ -82,14 +64,14 @@ class Category
         return $this;
     }
 
-    public function isIsActive(): ?bool
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->isActive;
+        return $this->createdAt;
     }
 
-    public function setIsActive(bool $isActive): self
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
-        $this->isActive = $isActive;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
@@ -106,7 +88,6 @@ class Category
     {
         if (!$this->posts->contains($post)) {
             $this->posts->add($post);
-            $post->setCategory($this);
         }
 
         return $this;
@@ -114,18 +95,8 @@ class Category
 
     public function removePost(Post $post): self
     {
-        if ($this->posts->removeElement($post)) {
-            // set the owning side to null (unless already changed)
-            if ($post->getCategory() === $this) {
-                $post->setCategory(null);
-            }
-        }
+        $this->posts->removeElement($post);
 
         return $this;
-    }
-
-    public function __toString()
-    {
-        return $this->name;
     }
 }
