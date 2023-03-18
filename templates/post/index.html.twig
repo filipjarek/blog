@@ -7,7 +7,7 @@
 
 {% block content %}
 
-	<div class="container mx-auto flex flex-wrap py-6">
+	<div class="container mx-auto flex flex-wrap py-2">
 		<section class="w-full md:w-2/3 flex flex-col items-center px-3">
 
 			<article class="flex flex-col shadow my-4">
@@ -22,7 +22,7 @@
 					<a href="{{ path('app_category', {'slug': post.category.slug}) }}" class="text-violet-600 hover:text-gray-900 text-sm font-bold uppercase pb-4 hover:underline">{{ post.category.name }}</a>
 						<p class="text-3xl font-bold hover:text-gray-700 pb-4">{{ post.title }}</p>
 							<p href="#" class="text-sm pb-8">
-								Published on <b>{{ post.createdAt|format_date('medium') }}</b>
+								Published on <i class="fa-solid fa-calendar-days"></i> <b>{{ post.createdAt|format_date('medium') }}</b>
 							</p>
 
 					<p class="pb-3 text-justify">{{ post.content }}</p>
@@ -93,6 +93,7 @@
 			</div>
 
 		</section>
+		{% include "components/_sidebar.html.twig" %}
 	</div>
 
 {% endblock %}
