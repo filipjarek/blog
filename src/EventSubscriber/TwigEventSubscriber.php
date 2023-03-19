@@ -3,6 +3,7 @@
 namespace App\EventSubscriber;
 
 use Twig\Environment;
+use App\Repository\TagRepository;
 use App\Repository\PostRepository;
 use App\Repository\CategoryRepository;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -15,6 +16,7 @@ class TwigEventSubscriber implements EventSubscriberInterface
         private Environment $twig,
         private CategoryRepository $categoryRepository,
         private PostRepository $postRepository,
+        private TagRepository $tagRepository,
     ) {
     }
     
@@ -22,6 +24,7 @@ class TwigEventSubscriber implements EventSubscriberInterface
     {
         $this->twig->addGlobal('categories', $this->categoryRepository->findAllActiveCategories());
         $this->twig->addGlobal('recentPosts', $this->postRepository->findRecentActivePosts());
+        $this->twig->addGlobal('tags', $this->tagRepository->findAll());
     }
 
     public static function getSubscribedEvents(): array
