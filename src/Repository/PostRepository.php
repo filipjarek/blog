@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Post;
 use App\Entity\Category;
+use Doctrine\ORM\Query\Expr;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
@@ -87,5 +88,30 @@ class PostRepository extends ServiceEntityRepository
             ->setMaxResults($num)
             ->getQuery()
             ->getResult();
+    }
+
+    public function findAllPostsByTag(string $slug)
+    {
+        $postIds = $this->createQueryBuilder('p')
+            ->select('p.id')
+            ->leftJoin('p.tags', 't')
+            ->where('t.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->andWhere('p.isActive = true')
+            ->getQuery()
+            ->getSingleColumnResult();
+
+        if ($postIds) {
+            return $this->createQueryBuilder('p')
+                ->leftJoin('p.category', 'c')->addSelect('c')
+                ->leftJoin('p.tags', 't')->addSelect('t')
+                ->where((new Expr())->in('p.id', $postIds))
+                ->andWhere('c.isActive = true')
+                ->orderBy('p.createdAt', 'DESC')
+                ->getQuery()
+                ->getResult();
+        } else {
+            return [];
+        }
     }
 }

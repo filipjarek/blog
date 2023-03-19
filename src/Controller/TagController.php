@@ -25,7 +25,7 @@ class TagController extends AbstractController
         $tag = $this->tagRepository->findOneBySlug($slug);
 
         $posts = $this->paginator->paginate(
-            $this->postRepository->findAll($slug),
+            $this->postRepository->findAllPostsByTag($slug),
             $request->query->getInt('page', 1)
         );
 

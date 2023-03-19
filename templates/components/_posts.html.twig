@@ -13,7 +13,7 @@
 
 			{% endif %}
 
-			<div class="bg-white flex flex-col justify-start p-6 shadow hover:shadow-xl shadow-gray-800/ border border-gray-300">
+			<div class="bg-gray-50 flex flex-col justify-start p-6 shadow hover:shadow-xl shadow-gray-800/ border border-gray-300">
 				<a href="{{ path('app_category', {'slug': post.category.slug}) }}" class="text-violet-600 hover:text-gray-900 text-sm font-bold uppercase pb-4 hover:underline">{{ post.category.name }}</a>
 				<a href="{{ path('app_post', {'slug': post.slug}) }}" class="text-3xl font-bold hover:text-gray-700 hover:underline pb-4">{{ post.title }}</a>
 				<p class="text-sm pb-3">
