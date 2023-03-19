@@ -29,18 +29,29 @@ class CategoryCrudController extends AbstractCrudController
     
     public function configureFields(string $pageName): iterable
     {
-        yield IdField::new('id')->onlyOnIndex();
+        yield IdField::new('id')
+            ->onlyOnIndex();
         yield TextField::new('name');
-        yield SlugField::new('slug')->setTargetFieldName('name')->setUnlockConfirmationMessage(
+        yield SlugField::new('slug')
+            ->setTargetFieldName('name')
+            ->setUnlockConfirmationMessage(
             'It is highly recommended to use the automatic slugs, but you can customize them'
         );
-        $createdAt = DateTimeField::new('createdAt');
+        $createdAt = DateTimeField::new('createdAt')
+            ->setTimezone('Europe/Warsaw')
+            ->setFormat('short', 'medium');
                     if (Crud::PAGE_EDIT === $pageName) {
-                        yield $createdAt->setFormTypeOption('disabled', true);
+                        yield $createdAt
+                            ->setFormTypeOption('disabled', true);
                     } else {
                         yield $createdAt;
                     }
+        yield DateTimeField::new('updatedAt')
+            ->hideONForm()
+            ->setTimezone('Europe/Warsaw')
+            ->setFormat('short', 'medium');
         yield BooleanField::new('is_active');
-        yield AssociationField::new('posts')->onlyOnIndex();
+        yield AssociationField::new('posts')
+            ->onlyOnIndex();
     }
 }

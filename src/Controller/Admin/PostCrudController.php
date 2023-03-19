@@ -41,26 +41,40 @@ class PostCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        yield IdField::new('id')->onlyOnIndex();
+        yield IdField::new('id')
+            ->onlyOnIndex();
         yield AssociationField::new('category');
-        yield AssociationField::new('tags')->setFormTypeOption('choice_label', 'name');
+        yield AssociationField::new('tags')
+            ->setFormTypeOption('choice_label', 'name');
         yield TextField::new('title');
-        yield SlugField::new('slug')->setTargetFieldName('title')->setUnlockConfirmationMessage(
+        yield SlugField::new('slug')
+            ->setTargetFieldName('title')
+            ->setUnlockConfirmationMessage(
             'It is highly recommended to use the automatic slugs, but you can customize them'
         );
-        yield TextareaField::new('previewContent')->onlyOnForms();
-        yield TextEditorField::new('content')->onlyOnForms();
+        yield TextareaField::new('previewContent')
+            ->onlyOnForms();
+        yield TextEditorField::new('content')
+            ->onlyOnForms();
        
         yield ImageField::new('image')
-        ->setBasePath('uploads/images')
-        ->setUploadDir('public/uploads/images/');
-        $createdAt = DateTimeField::new('createdAt');
+            ->setBasePath('uploads/images')
+            ->setUploadDir('public/uploads/images/');
+        $createdAt = DateTimeField::new('createdAt')
+            ->setTimezone('Europe/Warsaw')
+            ->setFormat('short', 'medium');
                     if (Crud::PAGE_EDIT === $pageName) {
-                        yield $createdAt->setFormTypeOption('disabled', true);
+                        yield $createdAt
+                            ->setFormTypeOption('disabled', true);
                     } else {
                         yield $createdAt;
                     }
+        yield DateTimeField::new('updatedAt')
+            ->hideONForm()
+            ->setTimezone('Europe/Warsaw')
+            ->setFormat('short', 'medium');
         yield BooleanField::new('is_active');
-        yield AssociationField::new('comments')->onlyOnIndex();
+        yield AssociationField::new('comments')
+            ->onlyOnIndex();
     }
 }
