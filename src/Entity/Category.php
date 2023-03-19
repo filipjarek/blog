@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use DateTimeImmutable;
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\Collection;
@@ -46,6 +47,12 @@ class Category
         $this->updatedAt = new \DateTimeImmutable();
         $this->createdAt = new \DateTimeImmutable();
         $this->posts = new ArrayCollection();
+    }
+
+    #[ORM\PrePersist]
+    public function prePersist()
+    {
+        $this->slug = (new Slugify())->slugify($this->name);
     }
 
     public function getId(): ?int
