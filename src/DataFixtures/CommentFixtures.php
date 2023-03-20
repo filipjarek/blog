@@ -3,40 +3,36 @@
 namespace App\DataFixtures;
 
 use Faker\Factory;
-use App\Entity\Tag;
+use App\Entity\Comment;
 use App\DataFixtures\PostFixtures;
 use App\Repository\PostRepository;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class TagFixtures extends Fixture implements DependentFixtureInterface
+class CommentFixtures extends Fixture implements DependentFixtureInterface
 {
     public function __construct(
-        private PostRepository $postRepository
+        private PostRepository $postRepository,
     ) {
     }
 
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
-        
-        $posts = $this->postRepository->findAll();
-        
-        $tags = [];
-        for ($i = 0; $i < 15; $i++) {
-            $tag = new Tag();
-            $tag->setName($faker->word());
 
-            $manager->persist($tag);
-            $tags[] = $tag;
-        }
+        $posts = $this->postRepository->findAll();
 
         foreach ($posts as $post) {
-            for ($i = 0; $i < mt_rand(1, 5); $i++) {
-                $post->addTag(
-                    $tags[mt_rand(0, count($tags) - 1)]
-                );
+            for ($i = 0; $i < mt_rand(0, 10); $i++) {
+                $comment = new Comment();
+                $comment->setText($faker->realText)
+                    ->setIsApproved(mt_rand(0, 1))
+                    ->setAuthor($faker->firstname)
+                    ->setPost($post);
+
+                $manager->persist($comment);
+                $post->addComment($comment);
             }
         }
 
@@ -50,3 +46,4 @@ class TagFixtures extends Fixture implements DependentFixtureInterface
         ];
     }
 }
+
