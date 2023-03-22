@@ -77,7 +77,7 @@
 
 			{% endif %}
 
-			{% for comment in post.comments %}
+			{% for comment in post.comments|sort|reverse %}
 
 				{% include 'components/_comments.html.twig' %}
 

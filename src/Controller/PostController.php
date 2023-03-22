@@ -21,7 +21,6 @@ class PostController extends AbstractController
         $comment = new Comment();
         $comment->setPost($post);
         
-
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
