@@ -10,9 +10,14 @@
 
     Symfony 6.2.6
     PHP 8.2.0
-    Bootstrap 5.2.3
+    TailwindCSS 3.2.7
     
 ## Features
+List the ready features here:
+- Admin control panel (EasyAdmin)
+- Displaying posts and sorting them from the most recent
+- Creating, editing and deleting: posts, tags, categories
+- Adding comments to a post
 
 ## Screenshots
 
