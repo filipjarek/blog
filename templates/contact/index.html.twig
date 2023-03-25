@@ -1,20 +1,71 @@
-<!DOCTYPE html>
+{% extends 'layouts/body.html.twig' %}
 
-<title>Hello ContactController!</title>
+{% block title %}
+	Contact
+{% endblock %}
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+{% block content %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+	<div class="container mx-auto flex flex-wrap py-2">
+		<section class="w-full flex flex-col items-center px-1">
+			<h2 class="text-sm font-semibold uppercase">
+				Contact
+			</h2>
+			<div class="bg-white w-4/5 shadow flex flex-col my-4 p-6 border border-gray-300">
+				<div class="w-full flex flex-col">
+					{{ form_start(form) }}
+					<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white py-1 px-1">
+						{{ form_label(form.fullName) }}
+					</label>
+					{{ form_widget(form.fullName, { 'attr': {'class':  'bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:outline-none focus:ring-2 focus:ring-violet-800'} }) }}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/neske/blog/new/src/Controller/ContactController.php'|file_link(0) }}">src/Controller/ContactController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/neske/blog/new/templates/contact/index.html.twig'|file_link(0) }}">templates/contact/index.html.twig</a></code></li>
-    </ul>
-</div>
+					<div class="text-xs text-red-600 dark:text-red-500">
+						{{ form_errors(form.fullName) }}
+					</div>
+
+					<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white py-1 px-1">
+						{{ form_label(form.email) }}
+					</label>
+					{{ form_widget(form.email, { 'attr': {'class':  'bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:outline-none focus:ring-2 focus:ring-violet-800'} }) }}
+
+					<div class="text-xs text-red-600 dark:text-red-500">
+						{{ form_errors(form.email) }}
+					</div>
+
+					<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white py-1 px-1">
+						{{ form_label(form.subject) }}
+					</label>
+					{{ form_widget(form.subject, { 'attr': {'class':  'bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:outline-none focus:ring-2 focus:ring-violet-800'} }) }}
+
+					<div class="text-xs text-red-600 dark:text-red-500">
+						{{ form_errors(form.subject) }}
+					</div>
+
+					<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white py-1 px-1">
+						{{ form_label(form.message) }}
+					</label>
+					{{ form_widget(form.message, { 'attr': {'class':  'bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:outline-none focus:ring-2 focus:ring-violet-800'} }) }}
+
+					<div class="text-xs text-red-600 dark:text-red-500">
+						{{ form_errors(form.message) }}
+					</div>
+
+					<div class="container mt-4 space-y-6"></div>
+					<div class="form-group group relative flex justify-center bg-gray-50 py-2 px-4 border border-gray-300 hover:border-2 hover:border-violet-800 text-gray-400 hover:text-violet-800 pt-1 pb-1 pl-6 pr-6 w-1/4 font-medium text-sm">
+						{{ form_row(form.submit) }}
+					</div>
+
+					{{ form_end(form) }}
+				</div>
+			</div>
+		</section>
+	</div>
+	<div class="w-full flex  justify-center">
+		<a href="{{ path('app_home') }}">
+			<p class="form-group group relative flex justify-center border-2 border-gray-400 hover:border-violet-800 text-gray-400 hover:text-violet-800 pt-1 pb-1 pl-6 pr-6 uppercase font-medium text-sm">
+				Return to the posts page
+			</p>
+		</a>
+	</div>
+	
 {% endblock %}
