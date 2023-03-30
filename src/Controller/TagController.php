@@ -19,7 +19,7 @@ class TagController extends AbstractController
     ) {
     }
 
-    #[Route('/tag/{slug}', name: 'app_tag')]
+    #[Route('/tag/{slug}', name: 'app_tag', methods: ['GET'])]
     public function index(string $slug, Request $request): Response
     {
         $tag = $this->tagRepository->findOneBySlug($slug);

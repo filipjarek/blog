@@ -19,7 +19,7 @@ class CategoryController extends AbstractController
     ) {
     }
 
-    #[Route('/category/{slug}', name: 'app_category')]
+    #[Route('/category/{slug}', name: 'app_category', methods: ['GET'])]
     public function index(string $slug, Request $request): Response
     {
         $category = $this->categoryRepository->findOneBySlug($slug);

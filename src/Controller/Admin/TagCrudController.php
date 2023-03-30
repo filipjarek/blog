@@ -38,12 +38,12 @@ class TagCrudController extends AbstractCrudController
         $createdAt = DateTimeField::new('createdAt')
             ->setTimezone('Europe/Warsaw')
             ->setFormat('short', 'medium');
-                    if (Crud::PAGE_EDIT === $pageName) {
-                        yield $createdAt
-                            ->setFormTypeOption('disabled', true);
-                    } else {
-                        yield $createdAt;
-                    }
+                if (Crud::PAGE_EDIT === $pageName) {
+                    yield $createdAt
+                        ->setFormTypeOption('disabled', true);
+                } else {
+                    yield $createdAt;
+                }
         yield DateTimeField::new('updatedAt')
             ->hideONForm()
             ->setTimezone('Europe/Warsaw')
