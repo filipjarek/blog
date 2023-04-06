@@ -30,7 +30,7 @@
 
 			{% for tag in tags %}
 
-				<a href="{{ path('app_tag', {'slug': tag.slug}) }}" class="text-gray-400 hover:text-white hover:bg-violet-800 text-xs font-medium  px-2.5 py-0.5 border border-gray-400 hover:border-violet-800 uppercase">
+				<a href="{{ path('app_tag', {'slug': tag.slug}) }}" class="text-gray-400 hover:text-white hover:bg-violet-800 text-xs font-medium px-2.5 py-0.5 border border-gray-400 hover:border-violet-800 uppercase">
 					<i class="fa-solid fa-tag"></i>
 					{{ tag.name }}
 				</a>
