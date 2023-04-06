@@ -49,6 +49,7 @@ class ContactTest extends WebTestCase
         $client->followRedirect();
         
         $this->assertRouteSame('app_contact');
+        $this->assertSelectorTextContains('div.alert', 'Your message has been sent !');
 
         $this->assertResponseIsSuccessful();
         $this->assertResponseStatusCodeSame(Response::HTTP_OK); 

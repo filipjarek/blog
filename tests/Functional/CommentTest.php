@@ -49,5 +49,6 @@ class CommentTest extends WebTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
 
         $this->assertRouteSame('app_post', ['slug' => $post->getSlug()]);
+        $this->assertSelectorTextContains('div.alert', 'Comment added successfully !');
     }
 }
