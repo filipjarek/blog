@@ -25,6 +25,11 @@ class ContactController extends AbstractController
             $em->persist($contact);
             $em->flush();
 
+            $this->addFlash(
+                'success',
+                'Your message has been sent !'
+            );
+
             return $this->redirectToRoute('app_contact');
         }
         
