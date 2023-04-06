@@ -11,14 +11,27 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class LoginTest extends WebTestCase
 {
+    public function testIfLoginPageWorks(): void
+    {
+        $client = static::createClient();
+
+        /** @var UrlGeneratorInterface */
+        $urlGeneratorInterface = $client->getContainer()->get('router');
+
+        $client->request(Request::METHOD_GET, $urlGeneratorInterface->generate('app_login'));
+
+        $this->assertResponseIsSuccessful();
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+    }
+
     public function testLoginWithGoodCredentials(): void
     {
         $client = static::createClient();
 
         /** @var UrlGeneratorInterface */
-        $urlGenerator = $client->getContainer()->get('router');
+        $urlGeneratorInterface = $client->getContainer()->get('router');
 
-        $crawler = $client->request(Request::METHOD_GET, $urlGenerator->generate('app_login'));
+        $crawler = $client->request(Request::METHOD_GET, $urlGeneratorInterface->generate('app_login'));
 
         $this->assertResponseIsSuccessful();
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
@@ -43,9 +56,9 @@ class LoginTest extends WebTestCase
         $client = static::createClient();
 
         /** @var UrlGeneratorInterface */
-        $urlGenerator = $client->getContainer()->get('router');
+        $urlGeneratorInterface = $client->getContainer()->get('router');
 
-        $crawler = $client->request(Request::METHOD_GET, $urlGenerator->generate('app_login'));
+        $crawler = $client->request(Request::METHOD_GET, $urlGeneratorInterface->generate('app_login'));
 
         $this->assertResponseIsSuccessful();
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
@@ -73,14 +86,14 @@ class LoginTest extends WebTestCase
         $userRepository = $client->getContainer()->get(UserRepository::class);
 
         /** @var UrlGeneratorInterface */
-        $urlGenerator = $client->getContainer()->get('router');
+        $urlGeneratorInterface = $client->getContainer()->get('router');
 
         /** @var User */
         $user = $userRepository->findOneBy([]);
 
         $client->loginUser($user);
 
-        $crawler = $client->request(Request::METHOD_GET, $urlGenerator->generate('app_logout'));
+        $crawler = $client->request(Request::METHOD_GET, $urlGeneratorInterface->generate('app_logout'));
 
         $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
         $client->followRedirect();
