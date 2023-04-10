@@ -24,7 +24,7 @@ class TagFixtures extends Fixture implements DependentFixtureInterface
         $posts = $this->postRepository->findAll();
         
         $tags = [];
-        for ($i = 0; $i < 15; $i++) {
+        for ($i = 0; $i < 9; $i++) {
             $tag = new Tag();
             $tag->setName($faker->word());
 
