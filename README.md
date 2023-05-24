@@ -6,6 +6,7 @@
 * [Features](#features)
 * [Screenshots](#screenshots)
 * [Setup](#setup)
+* [Testing](#testing)
 
 ## Technologies Used
 
@@ -71,3 +72,15 @@ $ php bin/console doctrine:fixtures:load
 $ symfony serve -d
 ```
 Open link in your browser: http://localhost:8000:
+
+#### Admin credentails
+```
+e-mail: admin@gmail.com
+password: password
+```
+## Testing
+```
+$ ./vendor/phpunit/phpunit/phpunit
+$ php bin/phpunit
+```
+Run the tests using PHPUnit package
